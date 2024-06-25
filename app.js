@@ -1,36 +1,34 @@
-let arrayNumSorteados = [];
+let listaNumerosSorteados = [];
 let limiteMaxElementos = 10; 
-let numSecreto = gerarNumeroRandom();
+let numeroSecreto = gerarNumeroRandom();
 let tentativas = 1; 
 
-//Função sem Retorno e com Parametro
 function exibirTextoNaTela(tag, texto){
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
-    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2} );
 }
 
 function exibirMensagemInicial() {
-    exibirTextoNaTela('h1','Jogo do Nº Secreto');
+    exibirTextoNaTela('h1','Jogo do Número Secreto');
     exibirTextoNaTela('p','Bem vindo, digite um número entre 1 e 10');
 }
 
 exibirMensagemInicial();
 
-//Função Sem Parametors e Sem Retorno
 function verificarChute(){
     let chute = document.querySelector('input').value;
 
-    if (chute == numSecreto){
+    if (chute == numeroSecreto){
         exibirTextoNaTela('h1','Acertou!');
         let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
-        let msmTentativas = ('p',`Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!`);
-        exibirTextoNaTela('p', msmTentativas);
+        let mensagemTentativas = ('p',`Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!`);
+        exibirTextoNaTela('p', mensagemTentativas);
         document.getElementById('reiniciar').removeAttribute('disabled');
-    } else{
-        if( chute > numSecreto ){
+    } else {
+        if( chute > numeroSecreto ){
             exibirTextoNaTela('p', 'O número secreto é menor');
-        } else{
+        } else {
             exibirTextoNaTela('p', 'O número secreto é maior');
         }
         tentativas++;
@@ -38,21 +36,20 @@ function verificarChute(){
     }
 }
 
-//Função com Retorno e Sem Parametro
 function gerarNumeroRandom() {
-    let numEscolhido = parseInt(Math.random() * limiteMaxElementos + 1);
-    let quantidadeElementosArray = arrayNumSorteados.length;
+    let numeroEscolhido = parseInt(Math.random() * limiteMaxElementos + 1);
+    let listaQuantidadeElementos = listaNumerosSorteados.length;
 
-    if (quantidadeElementosArray == limiteMaxElementos){
-        arrayNumSorteados = [];
+    if (listaQuantidadeElementos == limiteMaxElementos) {
+        listaNumerosSorteados = [];
     }
 
-    if (arrayNumSorteados.includes(numEscolhido)){
+    if (listaNumerosSorteados.includes(numeroEscolhido)){
         return gerarNumeroRandom();
     }   else {
-        arrayNumSorteados.push(numEscolhido);
-        console.log(arrayNumSorteados);
-        return numEscolhido;
+        listaNumerosSorteados.push(numeroEscolhido);
+        console.log(listaNumerosSorteados);
+        return numeroEscolhido;
     }
 }
 
@@ -62,7 +59,7 @@ function limparCampo() {
 }
 
 function reiniciarJogo() {
-    numSecreto = gerarNumeroRandom();
+    numeroSecreto = gerarNumeroRandom();
     limparCampo();
     tentativas = 1;
     exibirMensagemInicial();
